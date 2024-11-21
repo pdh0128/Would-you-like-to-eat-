@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <form>
+        <input type="text" placeholder="재료 적기">
+        <button type="submit">완료</button>
+        </form>
+    </center>
+<script>
+
+    document.querySelector("form").addEventListener("submit", async e => {
+        e.preventDefault();
+        value = document.querySelector("input").value;
+        const ingredients = value.split();
+        res = await fetch("/api/lookFood", {
+            method : 'POST',
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify({
+                ingredients : ingredients
+            })
+        })
+        res = await res.json();
+        console.log(res);
+    })
+
+</script>
+</body>
+</html>
