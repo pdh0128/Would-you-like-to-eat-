@@ -14,8 +14,10 @@ def food_lookat():
         return jsonify({"error": "No data"}), 400
     ingredients = data.get("ingredients", [])
     res = look_food(ingredients)
+    if res is None:
+        return jsonify({"error": "No res"}), 400
     print(res)
-    return jsonify(res)
+    return jsonify({"information" : res.to_dict()})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=999, debug=True)
