@@ -1,4 +1,3 @@
-from langchain.chains.question_answering.map_rerank_prompt import output_parser
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 load_dotenv()
@@ -9,7 +8,7 @@ from langchain import hub
 from langchain.tools import Tool
 from tools.tool import search_food
 def look_food(ingredients : list):
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.8)
     text = """
         음식의 재료를 줄게 {food} , 음식의 재료로 만들 수 있고 가장 맛있는 음식의 재료와 레시피 그리고 그 음식에 대힌 네 생각도 말해줘
         만약 도구로 음식의 정보를 찾지못하겠다면 너가 알고있는 지식으로 알려줘도 되. 
@@ -32,5 +31,6 @@ def look_food(ingredients : list):
     try : res = agent_axecutor.invoke({"input" : prompt.format_prompt(food=ingredients)})
     except : return None
     return res['output']
+
 if __name__ == '__main__':
     look_food(['고추', '무'])
